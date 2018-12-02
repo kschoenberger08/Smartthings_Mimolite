@@ -128,7 +128,7 @@ def zwaveEvent(physicalgraph.zwave.commands.sensorbinaryv1.SensorBinaryReport cm
 {
 	log.debug "sent a sensorBinaryReport command"
 	refresh()    
-	[name: "contact", value: cmd.value ? "open" : "closed"]
+	[name: "contact", value: cmd.sensorValue ? "open" : "closed"]
 }
 
 
@@ -166,7 +166,7 @@ def CalculateVoltage(ADCvalue)
 	
 
 def configure() {
-	def x = (RelaySwitchDelay*10).toInteger()
+    def x = RelaySwitchDelay == null ? 0 : (RelaySwitchDelay*10).toInteger()
     log.debug "Configuring.... " //setting up to monitor power alarm and actuator duration
     
 	delayBetween([
